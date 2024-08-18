@@ -24,7 +24,7 @@ func _physics_process(delta):
 				jump_time = 0
 		if is_preparing_jump:
 			jump_time += delta
-			if Input.is_action_just_released("jump") or jump_time > 0.15:
-				velocity = Vector2(0, -6000*jump_time)
+			if Input.is_action_just_released("jump") or jump_time > 0.1:
+				velocity = Vector2(0, -8000*jump_time)
 				print(jump_time)
 				is_preparing_jump = false
