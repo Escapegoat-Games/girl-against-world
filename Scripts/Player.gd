@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var gravity = Vector2(0, 20)
+var gravity = Vector2(0, 4000)
 var velocity = Vector2(0, 1)
 
 var jump_time = 0
@@ -10,11 +10,8 @@ func _ready():
 	pass # Replace with function body.
 
 
-func _process(delta):
-	pass
-
 func _physics_process(delta):
-	velocity += gravity
+	velocity += gravity * delta
 	move_and_slide_with_snap(velocity, Vector2.ZERO, Vector2.UP)
 	
 	if is_on_floor():
@@ -25,6 +22,6 @@ func _physics_process(delta):
 		if is_preparing_jump:
 			jump_time += delta
 			if Input.is_action_just_released("jump") or jump_time > 0.1:
-				velocity = Vector2(0, -8000*jump_time)
+				velocity = Vector2(0, -10000*jump_time)
 				print(jump_time)
 				is_preparing_jump = false
