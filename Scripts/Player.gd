@@ -1,13 +1,19 @@
 extends KinematicBody2D
 
+onready var sprite = $Sprite
 var gravity = Vector2(0, 4000)
 var velocity = Vector2(0, 1)
-
 var jump_time = 0
 var is_preparing_jump = false
 
 func _ready():
 	pass # Replace with function body.
+
+func _process(delta):
+	if is_on_floor():
+		sprite.play("run")
+	else:
+		sprite.play("jump")
 
 
 func _physics_process(delta):
