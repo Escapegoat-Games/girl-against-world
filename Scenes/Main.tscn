@@ -93,8 +93,8 @@ shape = SubResource( 2 )
 [node name="Sprite" type="AnimatedSprite" parent="Player"]
 scale = Vector2( 4, 4 )
 frames = SubResource( 7 )
-animation = "slide"
-frame = 1
+animation = "run"
+frame = 3
 playing = true
 
 [node name="Area2D" type="Area2D" parent="Player" groups=["player"]]
