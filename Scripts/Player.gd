@@ -9,7 +9,7 @@ enum State {
 onready var player_sprite = $PlayerSprite
 onready var smoke_sprite = $SmokeSprite
 onready var collision_shape = $CollisionShape2D
-var gravity = Vector2(0, 1500)
+var gravity = Vector2(0, 1200)
 var velocity = Vector2(0, 1)
 var jump_time = 0
 var is_preparing_jump = false
@@ -52,6 +52,6 @@ func _physics_process(delta):
 			jump_time += delta
 			if Input.is_action_just_released("jump") or jump_time > 0.1:
 				state = State.JUMPING
-				velocity = Vector2(0, -4500*jump_time)
+				velocity = Vector2(0, -3000*jump_time)
 				print(jump_time)
 				is_preparing_jump = false

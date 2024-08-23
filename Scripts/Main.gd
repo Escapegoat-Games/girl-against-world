@@ -8,7 +8,7 @@ func _ready():
 
 func _on_ObstacleSpawnerTimer_timeout():
 	var obstacle = obstacle_scene.instance()
-	obstacle.position = Vector2(192, 108 - 24)
+	obstacle.position = Vector2(192, 108 - 20)
 	add_child(obstacle)
 	
 	obstacle_spawner_timer.wait_time = 2 * randf() + 1
