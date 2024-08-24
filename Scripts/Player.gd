@@ -15,14 +15,15 @@ var gravity = Vector2(0, 1200)
 var velocity = Vector2(0, 1)
 var jump_time = 0
 var is_preparing_jump = false
-var state = State.RUNNING
 var is_flashing = false
+var not_hit_time = 0
+var state = State.RUNNING
 
 func _process(delta):
 	if state == State.RUNNING:
 		player_sprite.play("run")
 		player_sprite.position.y = 0
-		smoke_sprite.visible = false
+		smoke_sprite.visible = GameManager.level_speed_scale >= 2
 		player_sprite.position = Vector2(0, 0)
 		smoke_sprite.position = Vector2(0, 16)
 	elif state == State.JUMPING:
@@ -32,7 +33,14 @@ func _process(delta):
 		player_sprite.play("slide")
 		player_sprite.position = Vector2(-8, -4)
 		smoke_sprite.visible = true
-		smoke_sprite.position = Vector2(-24, 12)
+		smoke_sprite.position = Vector2(-16, 12)
+	
+	not_hit_time += delta
+	
+	GameManager.level_speed_scale = clamp(not_hit_time / 10, 1, 10)
+	player_sprite.speed_scale = GameManager.level_speed_scale
+	smoke_sprite.speed_scale = GameManager.level_speed_scale
+
 
 func _physics_process(delta):
 	velocity += gravity * delta
@@ -66,6 +74,7 @@ func _on_Area2D_body_entered(body):
 		GameManager.player_health -= 1
 		player_hit_animation_player.play("player_hit")
 		is_flashing = true
+		not_hit_time = 0
 		player_hit_timer.start()
 
 

@@ -154,14 +154,14 @@ script = ExtResource( 2 )
 material = SubResource( 22 )
 frames = SubResource( 7 )
 animation = "run"
-frame = 1
+frame = 3
 playing = true
 centered = false
 
 [node name="SmokeSprite" type="AnimatedSprite" parent="Player"]
 position = Vector2( -16, 16 )
 frames = SubResource( 16 )
-frame = 1
+frame = 3
 playing = true
 centered = false
 
