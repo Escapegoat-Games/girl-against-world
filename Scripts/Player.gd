@@ -20,15 +20,16 @@ func _process(delta):
 		player_sprite.play("run")
 		player_sprite.position.y = 0
 		smoke_sprite.visible = false
-		smoke_sprite.position.y = 16
+		player_sprite.position = Vector2(0, 0)
+		smoke_sprite.position = Vector2(0, 16)
 	elif state == State.JUMPING:
 		player_sprite.play("jump")
 		smoke_sprite.visible = false
 	elif state == State.SLIDING:
 		player_sprite.play("slide")
-		player_sprite.position.y = -4
+		player_sprite.position = Vector2(-8, -4)
 		smoke_sprite.visible = true
-		smoke_sprite.position.y = 12
+		smoke_sprite.position = Vector2(-24, 12)
 
 func _physics_process(delta):
 	velocity += gravity * delta
