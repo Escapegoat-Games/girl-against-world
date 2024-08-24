@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pointy_mountains.png-eff4c2e5d9640c3eb8c7f75d1f5c7536.stex"
+path="res://.import/bg01.png-5462d3fcbb246db102c7c60da8792759.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://pointy_mountains.png"
-dest_files=[ "res://.import/pointy_mountains.png-eff4c2e5d9640c3eb8c7f75d1f5c7536.stex" ]
+source_file="res://bg01.png"
+dest_files=[ "res://.import/bg01.png-5462d3fcbb246db102c7c60da8792759.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

@@ -1,6 +1,6 @@
 [gd_scene load_steps=27 format=2]
 
-[ext_resource path="res://pointy_mountains.png" type="Texture" id=1]
+[ext_resource path="res://bg01.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/Obstacle.tscn" type="PackedScene" id=4]
@@ -110,14 +110,14 @@ shape = SubResource( 2 )
 [node name="PlayerSprite" type="AnimatedSprite" parent="Player"]
 frames = SubResource( 7 )
 animation = "run"
-frame = 3
+frame = 2
 playing = true
 centered = false
 
 [node name="SmokeSprite" type="AnimatedSprite" parent="Player"]
 position = Vector2( -16, 16 )
 frames = SubResource( 16 )
-frame = 3
+frame = 2
 playing = true
 centered = false
 
@@ -141,12 +141,11 @@ script = ExtResource( 10 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.5, 1 )
-motion_mirroring = Vector2( 200, 0 )
+motion_mirroring = Vector2( 192, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2( 101, 74 )
-scale = Vector2( 0.27381, 0.27381 )
 texture = ExtResource( 1 )
+centered = false
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_mirroring = Vector2( 224, 0 )
