@@ -9,11 +9,14 @@ enum State {
 onready var player_sprite = $PlayerSprite
 onready var smoke_sprite = $SmokeSprite
 onready var collision_shape = $CollisionShape2D
+onready var player_hit_animation_player = $PlayerHitAnimationPlayer
+onready var player_hit_timer = $PlayerHitTimer
 var gravity = Vector2(0, 1200)
 var velocity = Vector2(0, 1)
 var jump_time = 0
 var is_preparing_jump = false
 var state = State.RUNNING
+var is_flashing = false
 
 func _process(delta):
 	if state == State.RUNNING:
@@ -56,3 +59,17 @@ func _physics_process(delta):
 				velocity = Vector2(0, -3000*jump_time)
 				print(jump_time)
 				is_preparing_jump = false
+
+
+func _on_Area2D_body_entered(body):
+	if not is_flashing:
+		GameManager.player_health -= 1
+		player_hit_animation_player.play("player_hit")
+		is_flashing = true
+		player_hit_timer.start()
+
+
+func _on_PlayerHitTimer_timeout():
+	player_hit_animation_player.stop()
+	player_sprite.material.set_shader_param("active", false)
+	is_flashing = false
