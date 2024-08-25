@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/kohane.png-b5924a07b8387431f8d53de7b1ded718.stex"
+path="res://.import/kohane2.png-8072f9162d6b1e871cafad3e8fabad60.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://kohane.png"
-dest_files=[ "res://.import/kohane.png-b5924a07b8387431f8d53de7b1ded718.stex" ]
+source_file="res://Assets/kohane2.png"
+dest_files=[ "res://.import/kohane2.png-8072f9162d6b1e871cafad3e8fabad60.stex" ]
 
 [params]
 
