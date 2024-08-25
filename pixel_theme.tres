@@ -1,10 +1,12 @@
 [gd_resource type="Theme" load_steps=6 format=2]
 
 [sub_resource type="DynamicFontData" id=32]
-font_path = "res://Kenney Pixel.ttf"
+antialiased = false
+font_path = "res://Assets/Kenney Pixel Square.ttf"
 
 [sub_resource type="DynamicFont" id=3]
 size = 8
+outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 extra_spacing_char = 1
 extra_spacing_space = 2
@@ -20,7 +22,7 @@ bg_color = Color( 0, 0, 0, 1 )
 bg_color = Color( 0.368627, 1, 0.317647, 1 )
 
 [resource]
-Label/colors/font_color = Color( 0, 0, 0, 1 )
+Label/colors/font_color = Color( 1, 1, 1, 1 )
 Label/fonts/font = SubResource( 3 )
 Panel/styles/panel = SubResource( 4 )
 ProgressBar/styles/bg = SubResource( 1 )

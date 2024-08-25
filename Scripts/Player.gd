@@ -24,7 +24,7 @@ var speed_time = 0
 var state = State.RUNNING
 
 func _process(delta):
-	if GameManager.game_state != GameManager.GameState.PLAYING:
+	if GameManager.game_state != GameManager.GameState.PLAYING_GAME:
 		return
 		
 	if state == State.RUNNING:
@@ -59,7 +59,7 @@ func _physics_process(delta):
 	velocity += gravity * delta
 	move_and_slide_with_snap(velocity, Vector2.ZERO, Vector2.UP)
 	
-	if is_on_floor() and GameManager.game_state == GameManager.GameState.PLAYING:
+	if is_on_floor() and GameManager.game_state == GameManager.GameState.PLAYING_GAME:
 		if Input.is_action_pressed("slide"):
 			state = State.SLIDING
 			collision_shape.shape.radius = 8

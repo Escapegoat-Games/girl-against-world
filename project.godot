@@ -12,7 +12,7 @@ config_version=4
 
 config/name="Girl Against World"
 config/description="Kohane must run to school to be on time but today the entire world is against her!"
-run/main_scene="res://Scenes/Game.tscn"
+run/main_scene="res://Scenes/Title.tscn"
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
 
@@ -50,6 +50,11 @@ jump={
 slide={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+start_game={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777221,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 
