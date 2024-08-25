@@ -318,7 +318,7 @@ texture = ExtResource( 10 )
 centered = false
 
 [node name="City1" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2( 0.5, 1 )
+motion_scale = Vector2( 0.5, 0.8 )
 motion_mirroring = Vector2( 192, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/City1"]
@@ -326,7 +326,7 @@ texture = ExtResource( 8 )
 centered = false
 
 [node name="City2" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2( 0.6, 1 )
+motion_scale = Vector2( 0.6, 0.9 )
 motion_mirroring = Vector2( 192, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/City2"]
@@ -362,7 +362,7 @@ script = ExtResource( 2 )
 material = SubResource( 22 )
 frames = SubResource( 7 )
 animation = "run"
-frame = 3
+frame = 1
 playing = true
 centered = false
 
@@ -370,6 +370,7 @@ centered = false
 visible = false
 position = Vector2( -16, 16 )
 frames = SubResource( 16 )
+frame = 2
 playing = true
 centered = false
 
