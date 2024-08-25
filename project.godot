@@ -10,9 +10,11 @@ config_version=4
 
 [application]
 
-config/name="Late For School"
+config/name="Girl Against World"
+config/description="Kohane must run to school to be on time but today the entire world is against her!"
 run/main_scene="res://Scenes/Game.tscn"
 config/icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
