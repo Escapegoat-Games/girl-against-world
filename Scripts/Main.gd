@@ -3,6 +3,7 @@ extends Node2D
 onready var obstacles_tileset = $ParallaxBackground/Obstacles/Tileset
 onready var parallax_background = $ParallaxBackground
 onready var level_anim_player = $LevelAnimationPlayer
+onready var school_sprite = $ParallaxBackground/School/Sprite
 
 func _ready():
 	randomize()
@@ -16,6 +17,8 @@ func _ready():
 		else:
 			no_box_counter += 1
 		counter += 1
+	
+	school_sprite.position.x = GameManager.TOTAL_DISTANCE * 16
 	
 	level_anim_player.play("start_level")
 
