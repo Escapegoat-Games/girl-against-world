@@ -1,0 +1,374 @@
+[gd_scene load_steps=35 format=2]
+
+[ext_resource path="res://Scripts/Player.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/PlayerHealthLabel.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Main.gd" type="Script" id=4]
+[ext_resource path="res://tileset.tres" type="TileSet" id=5]
+[ext_resource path="res://Assets/kohane.png" type="Texture" id=6]
+[ext_resource path="res://Assets/kohane2.png" type="Texture" id=7]
+[ext_resource path="res://Assets/bg01.png" type="Texture" id=8]
+[ext_resource path="res://Assets/bg02.png" type="Texture" id=9]
+[ext_resource path="res://Assets/bg03.png" type="Texture" id=10]
+[ext_resource path="res://Assets/smoke.png" type="Texture" id=11]
+
+[sub_resource type="Shader" id=23]
+code = "// https://godotshaders.com/shader/hit-flash-effect-shader/
+
+shader_type canvas_item;
+
+uniform bool active = false;
+
+void fragment() {
+	vec4 previous_color = texture(TEXTURE, UV);
+	vec4 white_color = vec4(1.0, 1.0, 1.0, previous_color.a);
+	vec4 new_color = previous_color;
+	if (active == true)
+	{
+		new_color = white_color
+	}
+	COLOR = new_color;
+}"
+
+[sub_resource type="ShaderMaterial" id=22]
+shader = SubResource( 23 )
+shader_param/active = false
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 6 )
+region = Rect2( 64, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 6 )
+region = Rect2( 16, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 6 )
+region = Rect2( 32, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 6 )
+region = Rect2( 48, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 7 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 7 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 16, 32 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 8 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "run",
+"speed": 12.0
+}, {
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"loop": true,
+"name": "slide",
+"speed": 12.0
+}, {
+"frames": [ SubResource( 28 ) ],
+"loop": true,
+"name": "stand",
+"speed": 5.0
+} ]
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 11 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 11 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 11 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=16]
+animations = [ {
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ) ],
+"loop": true,
+"name": "default",
+"speed": 12.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 8.0
+height = 16.0
+
+[sub_resource type="Animation" id=24]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerSprite:material:shader_param/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "player_hit"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerSprite:material:shader_param/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.001, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, false, true ]
+}
+
+[sub_resource type="RectangleShape2D" id=17]
+extents = Vector2( 128, 8 )
+
+[sub_resource type="Animation" id=25]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("ParallaxBackground:scroll_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=27]
+resource_name = "end_level"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("ParallaxBackground/Players/Player/PlayerSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "run", "stand" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ParallaxBackground:scroll_offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -32, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ParallaxBackground/Players/Player/PlayerSprite:speed_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 0.0796601 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ParallaxBackground/Players/Player/SmokeSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=26]
+resource_name = "start_level"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("ParallaxBackground:scroll_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 50 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ParallaxBackground/Players/Player:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -32, 64 ), Vector2( -32, 64 ), Vector2( 32, 64 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ParallaxBackground/Players/Player/PlayerSprite:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "run" ]
+}
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Sky" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0, 1 )
+motion_mirroring = Vector2( 192, 108 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Sky"]
+texture = ExtResource( 10 )
+centered = false
+
+[node name="City1" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.5, 1 )
+motion_mirroring = Vector2( 192, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/City1"]
+texture = ExtResource( 8 )
+centered = false
+
+[node name="City2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.6, 1 )
+motion_mirroring = Vector2( 192, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/City2"]
+texture = ExtResource( 9 )
+centered = false
+
+[node name="BG" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 256, 0 )
+
+[node name="Tileset" type="TileMap" parent="ParallaxBackground/BG"]
+tile_set = ExtResource( 5 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 393215, 8, 0, 327680, 8, 0, 327681, 8, 0, 327682, 8, 0, 327683, 8, 0, 327684, 8, 0, 327685, 8, 0, 327686, 8, 0, 327687, 8, 0, 327688, 8, 0, 327689, 8, 0, 327690, 8, 0, 327691, 8, 0, 327692, 8, 0, 327693, 8, 0, 327694, 8, 0, 327695, 8, 0, 327696, 8, 0, 327697, 8, 0, 327698, 8, 0, 327699, 8, 0, 327700, 8, 0, 327701, 8, 0, 327702, 8, 0, 327703, 8, 0, 458751, 3, 0, 393216, 4, 0, 393217, 3, 0, 393218, 4, 0, 393219, 3, 0, 393220, 4, 0, 393221, 3, 0, 393222, 4, 0, 393223, 3, 0, 393224, 3, 0, 393225, 4, 0, 393226, 3, 0, 393227, 4, 0, 393228, 3, 0, 393229, 4, 0, 393230, 3, 0, 393231, 4, 0, 393232, 3, 0, 393233, 4, 0, 393234, 3, 0, 393235, 4, 0, 393236, 3, 0, 393237, 4, 0, 393238, 3, 0, 393239, 4, 0 )
+
+[node name="Obstacles" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Tileset" type="TileMap" parent="ParallaxBackground/Obstacles"]
+tile_set = ExtResource( 5 )
+cell_size = Vector2( 16, 16 )
+collision_layer = 2
+collision_mask = 2
+format = 1
+
+[node name="Players" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0, 1 )
+
+[node name="Player" type="KinematicBody2D" parent="ParallaxBackground/Players"]
+position = Vector2( 32, 64 )
+script = ExtResource( 2 )
+
+[node name="PlayerSprite" type="AnimatedSprite" parent="ParallaxBackground/Players/Player"]
+material = SubResource( 22 )
+frames = SubResource( 7 )
+animation = "stand"
+playing = true
+centered = false
+
+[node name="SmokeSprite" type="AnimatedSprite" parent="ParallaxBackground/Players/Player"]
+visible = false
+position = Vector2( -16, 16 )
+frames = SubResource( 16 )
+frame = 1
+playing = true
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParallaxBackground/Players/Player"]
+position = Vector2( 8, 16 )
+shape = SubResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="ParallaxBackground/Players/Player" groups=["player"]]
+position = Vector2( 8, 16 )
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParallaxBackground/Players/Player/Area2D"]
+shape = SubResource( 2 )
+
+[node name="PlayerHitAnimationPlayer" type="AnimationPlayer" parent="ParallaxBackground/Players/Player"]
+playback_speed = 2.0
+anims/RESET = SubResource( 24 )
+anims/player_hit = SubResource( 20 )
+
+[node name="PlayerHitTimer" type="Timer" parent="ParallaxBackground/Players/Player"]
+wait_time = 0.5
+
+[node name="Ground" type="StaticBody2D" parent="ParallaxBackground/Players"]
+position = Vector2( 96, 104 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParallaxBackground/Players/Ground"]
+shape = SubResource( 17 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PlayerHealthLabel" type="Label" parent="CanvasLayer"]
+margin_right = 40.0
+margin_bottom = 14.0
+script = ExtResource( 3 )
+
+[node name="LevelAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 25 )
+anims/end_level = SubResource( 27 )
+anims/start_level = SubResource( 26 )
+
+[connection signal="body_entered" from="ParallaxBackground/Players/Player/Area2D" to="ParallaxBackground/Players/Player" method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="ParallaxBackground/Players/Player/PlayerHitTimer" to="ParallaxBackground/Players/Player" method="_on_PlayerHitTimer_timeout"]
+[connection signal="animation_finished" from="LevelAnimationPlayer" to="." method="_on_StartLevelAnimationPlayer_animation_finished"]

@@ -24,9 +24,11 @@ var speed_time = 0
 var state = State.RUNNING
 
 func _process(delta):
+	if GameManager.game_state != GameManager.GameState.PLAYING:
+		return
+		
 	if state == State.RUNNING:
 		player_sprite.play("run")
-		player_sprite.position.y = 0
 		smoke_sprite.visible = GameManager.level_speed_scale >= MAX_SPEED * 0.4
 		player_sprite.position = Vector2(0, 0)
 		smoke_sprite.position = Vector2(0, 16)
@@ -57,7 +59,7 @@ func _physics_process(delta):
 	velocity += gravity * delta
 	move_and_slide_with_snap(velocity, Vector2.ZERO, Vector2.UP)
 	
-	if is_on_floor():
+	if is_on_floor() and GameManager.game_state == GameManager.GameState.PLAYING:
 		if Input.is_action_pressed("slide"):
 			state = State.SLIDING
 			collision_shape.shape.radius = 8
