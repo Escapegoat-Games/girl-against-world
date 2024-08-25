@@ -27,7 +27,7 @@ func _process(delta):
 	if state == State.RUNNING:
 		player_sprite.play("run")
 		player_sprite.position.y = 0
-		smoke_sprite.visible = GameManager.level_speed_scale >= MAX_SPEED / 2
+		smoke_sprite.visible = GameManager.level_speed_scale >= MAX_SPEED * 0.4
 		player_sprite.position = Vector2(0, 0)
 		smoke_sprite.position = Vector2(0, 16)
 	elif state == State.JUMPING:
@@ -76,13 +76,11 @@ func _physics_process(delta):
 			if Input.is_action_just_released("jump") or jump_time > 0.1:
 				state = State.JUMPING
 				velocity = Vector2(0, -3000*jump_time)
-				print(jump_time)
 				is_preparing_jump = false
 
 
 func _on_Area2D_body_entered(body):
 	if not is_flashing:
-		GameManager.player_health -= 1
 		player_hit_animation_player.play("player_hit")
 		is_flashing = true
 		if speed_time > 0:
