@@ -6,6 +6,8 @@ enum GameState {
 	ENDING
 }
 
+const TOTAL_DISTANCE = 1000
+
 var level_speed_scale = 3
 var distance = 0
 var time_left = 120

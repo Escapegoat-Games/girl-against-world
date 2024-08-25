@@ -3,13 +3,12 @@ extends Node2D
 onready var obstacles_tileset = $ParallaxBackground/Obstacles/Tileset
 onready var parallax_background = $ParallaxBackground
 onready var level_anim_player = $LevelAnimationPlayer
-const TOTAL_DISTANCE = 1000
 
 func _ready():
 	randomize()
 	var counter = 12
 	var no_box_counter = 0
-	while counter < TOTAL_DISTANCE:
+	while counter < GameManager.TOTAL_DISTANCE:
 		var is_place_box = randi() % 10 == 0
 		if no_box_counter > 5 and is_place_box:
 			obstacles_tileset.set_cell(counter, 5, 0)
@@ -27,7 +26,7 @@ func _process(delta):
 		parallax_background.scroll_offset.x -= 100 * GameManager.level_speed_scale * delta
 		GameManager.distance = -parallax_background.scroll_offset.x / 16
 		
-		if GameManager.distance >= TOTAL_DISTANCE:
+		if GameManager.distance >= GameManager.TOTAL_DISTANCE:
 			GameManager.game_state = GameManager.GameState.ENDING
 			var anim = level_anim_player.get_animation("end_level")
 			anim.track_set_key_value(1, 0, parallax_background.scroll_offset)

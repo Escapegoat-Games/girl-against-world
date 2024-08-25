@@ -1,7 +1,8 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=42 format=2]
 
+[ext_resource path="res://Assets/timer_icon.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=2]
-[ext_resource path="res://Scripts/PlayerHealthLabel.gd" type="Script" id=3]
+[ext_resource path="res://Assets/run_icon.png" type="Texture" id=3]
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=4]
 [ext_resource path="res://tileset.tres" type="TileSet" id=5]
 [ext_resource path="res://Assets/kohane.png" type="Texture" id=6]
@@ -10,6 +11,9 @@
 [ext_resource path="res://Assets/bg02.png" type="Texture" id=9]
 [ext_resource path="res://Assets/bg03.png" type="Texture" id=10]
 [ext_resource path="res://Assets/smoke.png" type="Texture" id=11]
+[ext_resource path="res://pixel_theme.tres" type="Theme" id=12]
+[ext_resource path="res://Scenes/HUD.gd" type="Script" id=13]
+[ext_resource path="res://Assets/Kenney Pixel Square.ttf" type="DynamicFontData" id=14]
 
 [sub_resource type="Shader" id=23]
 code = "// https://godotshaders.com/shader/hit-flash-effect-shader/
@@ -154,6 +158,31 @@ tracks/0/keys = {
 
 [sub_resource type="RectangleShape2D" id=17]
 extents = Vector2( 128, 8 )
+
+[sub_resource type="DynamicFont" id=29]
+size = 1
+
+[sub_resource type="DynamicFont" id=30]
+size = 8
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 14 )
+
+[sub_resource type="Animation" id=31]
+resource_name = "blink_time"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("SecondsLeftLabel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [sub_resource type="Animation" id=25]
 length = 0.001
@@ -327,7 +356,7 @@ centered = false
 visible = false
 position = Vector2( -16, 16 )
 frames = SubResource( 16 )
-frame = 3
+frame = 2
 playing = true
 centered = false
 
@@ -359,10 +388,44 @@ shape = SubResource( 17 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="PlayerHealthLabel" type="Label" parent="CanvasLayer"]
-margin_right = 40.0
-margin_bottom = 14.0
-script = ExtResource( 3 )
+[node name="HUD" type="Control" parent="CanvasLayer"]
+margin_right = 128.0
+margin_bottom = 32.0
+theme = ExtResource( 12 )
+script = ExtResource( 13 )
+
+[node name="DistanceProgressBar" type="ProgressBar" parent="CanvasLayer/HUD"]
+anchor_right = 1.0
+margin_left = 16.0
+margin_top = 6.0
+margin_right = -4.0
+margin_bottom = 10.0
+theme = ExtResource( 12 )
+custom_fonts/font = SubResource( 29 )
+percent_visible = false
+
+[node name="SecondsLeftLabel" type="Label" parent="CanvasLayer/HUD"]
+margin_left = 16.0
+margin_top = 14.0
+margin_right = 67.0
+margin_bottom = 26.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 30 )
+text = "000"
+valign = 1
+
+[node name="DistanceIcon" type="Sprite" parent="CanvasLayer/HUD"]
+texture = ExtResource( 3 )
+centered = false
+offset = Vector2( 4, 4 )
+
+[node name="TimerIcon" type="Sprite" parent="CanvasLayer/HUD"]
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( 4, 16 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/HUD"]
+anims/blink_time = SubResource( 31 )
 
 [node name="LevelAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 25 )
